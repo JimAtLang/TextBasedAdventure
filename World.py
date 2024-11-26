@@ -8,8 +8,20 @@ class World:
         self.verbs = [Verb("go", self.player.location)]
         self.ui = UI()
 
-    def act(self, verb, io, do):
-        pass
+    def find_verb(self, verb_string):
+        for verb in self.verbs:
+            if verb.name == verb_string:
+                return verb
+            else:
+                return None
+
+    def act(self, verb_string, io, do):
+        verb = self.find_verb(verb_string)
+        if verb:
+            pass
+        else:
+            self.ui.say("I don't know how to " + verb_string)
+
 
     def go(self, direction):
         if self.player.location[direction]:
