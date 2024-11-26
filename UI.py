@@ -11,3 +11,6 @@ class UI:
         while True:
             move = input()
             self.parser.parse(move)
+
+    def say(self,string):
+        print(string)
