@@ -10,7 +10,7 @@ class UI:
     def game_loop(self):
         while True:
             move = input()
-            self.parser.parse(move)
+            v, do, io = self.parser.parse(move)
 
     def say(self,string):
         print(string)

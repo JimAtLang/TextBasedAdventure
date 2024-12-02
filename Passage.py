@@ -2,7 +2,12 @@ from Directions import Directions
 
 
 class Passage:
-    def __init__(self, from_room, to_room, from_dir, to, custom_from_dir=None, custom_to_dir=None, obstacle = None):
+    def __init__(self, from_room, to_room, from_dir, custom_from_dir=None, custom_to_dir=None, obstacle = None):
+        if not from_room[from_dir]:
+            from_room.add_direction(from_dir, self)
+        else:
+            raise ValueError("The direction " + from_dir.value + " is already assigned in room " + from_room.name)
+
         self.from_room = from_room
         self.to_room = to_room
         if not isinstance(from_dir, Directions):
@@ -23,4 +28,9 @@ class Passage:
             self.to_dir = Directions.DOWN
         else: # from_dir = DOWN
             self.to_dir = Directions.UP
+        if not self.to_room[self.to_dir]:
+            self.to_room.add_direction(self.to_dir, self)
+        else:
+            raise ValueError("The direction " + self.to_dir.value + " is already assigned in room " + to_room.name)
+
         self.obstacle = obstacle
