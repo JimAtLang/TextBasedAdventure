@@ -5,3 +5,5 @@ class Room(GameObject):
         super().__init__(desc, inside, flags, synonyms, capacity)
         self.directions = {"north":None, "South":None, "East":None, "West":None, "Up": None, "Down":None}
         
+    def add_direction(self,direction,room):
+        self.directions[direction] = room
