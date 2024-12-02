@@ -1,3 +1,6 @@
+from DeadEnd import DeadEnd
+
+
 class Actions:
     def __init__(self, player, world, ui):
         self.player = player
@@ -6,6 +9,9 @@ class Actions:
     def go(self, direction):
         if self.player.location[direction]:
             passage = self.player.location[direction]
+            if isinstance(passage, DeadEnd):
+                self.ui.say(passage.desc)
+                return
             if passage.obstacle and not passage.obstacle.open:
                 self.ui.say(passage.obstacle.closed_message)
             else:

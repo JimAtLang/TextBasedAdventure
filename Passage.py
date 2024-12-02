@@ -1,14 +1,18 @@
+from DeadEnd import DeadEnd
 from Directions import Directions
 
 
 class Passage:
-    def __init__(self, from_room, to_room, from_dir, custom_from_dir=None, custom_to_dir=None, obstacle = None):
+    def __init__(self, name, desc, from_room, from_dir, to_room, custom_from_dir=None, custom_to_dir=None, obstacle = None):
+        self.name = name
+        self.desc = desc
         if not from_room[from_dir]:
             from_room.add_direction(from_dir, self)
         else:
             raise ValueError("The direction " + from_dir.value + " is already assigned in room " + from_room.name)
-
         self.from_room = from_room
+        if isinstance(self, DeadEnd):
+            return
         self.to_room = to_room
         if not isinstance(from_dir, Directions):
             raise TypeError("Use NORTH, SOUTH, EAST, WEST, UP, DOWN for directions, or to use custom directions use from_dir = CUSTOM and custom_from_direction, custom_to_direction to assign")
