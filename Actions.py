@@ -19,8 +19,25 @@ class Actions:
                     self.player.location = passage.to_room
                 else:
                     self.player.location = passage.to_room
+                self.ui.say(self.player.location.desc)
         else:
             self.ui.say("You can't go there")
+
+    def look(self, do = None):
+        current_room = self.player.location
+        if not do:
+            self.ui.say(current_room.desc)
+        else:
+            current_room = self.player.location
+            if do in current_room.directions:
+                passage = self.player.location.directions[do]
+                if passage.obstacle and not passage.obstacle.open:
+                    self.ui.say(passage.obstacle.desc)
+                else:
+                    viewed_room = passage.to_room if current_room == passage.from_room else passage.from_room
+                    self.ui.say(viewed_room.desc)
+            else:
+                self.ui.say("I don't know the direction " + do)
 
     def open_obstacle(self, verb, io, obstacle):
         if verb in obstacle.open_commands and io == obstacle.key:

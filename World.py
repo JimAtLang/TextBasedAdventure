@@ -22,6 +22,6 @@ class World:
             if io in verb.look_in:
                 verb.look_in[io]()
             else:
-                ui.say("I don't see a " + io + " here,")
+                self.ui.say("I don't see a " + io + " here,")
         else:
             self.ui.say("I don't know how to " + verb_string)
